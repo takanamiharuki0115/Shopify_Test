@@ -1,3 +1,14 @@
 .h-250 {
     height: 250px!important;
 }
+.btn-soldout {
+    background-color: red!important;
+    color: white;
+}
+.btn-available {
+    background-color: green!important;
+    color: white;
+}
+.btn-available:hover {
+    background-color: blue!important;
+}
