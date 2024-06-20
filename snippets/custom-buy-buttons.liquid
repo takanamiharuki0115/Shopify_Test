@@ -94,6 +94,14 @@
             </span>
             {%- render 'loading-spinner' -%}
           </button>
+          {% assign product = product.selected_or_first_available_variant %}
+          {% if product.available %}
+            {% if product.inventory_quantity < 5 %}
+              <p>Low stock</p>
+            {% else %}
+              <p>Available!</p>
+            {% endif %}
+          {% endif %}
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
