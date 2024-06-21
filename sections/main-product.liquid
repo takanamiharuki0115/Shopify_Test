@@ -449,9 +449,11 @@
                   assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin
                   render 'share-button', block: block, share_link: share_url
                 %}
-
-              {%- when 'variant_picker' -%}
-                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+              {% comment %} {%- when 'variant_picker' -%}
+                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %} {% endcomment %}
+              <script>
+                console.log('Product: ',{{ product | json }})
+              </script>
               {%- when 'buy_buttons' -%}
                 {%- render 'custom-buy-buttons',
                   block: block,
@@ -564,7 +566,7 @@
                                       {%- else -%}
                                         {% assign quick_add = "none" %}
                                       {%- endif -%}
-                                      {% render 'card-product',
+                                      {% render 'custom-card-product',
                                         card_product: product,
                                         media_aspect_ratio: block.settings.image_ratio,
                                         show_secondary_image: false,

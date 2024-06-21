@@ -101,6 +101,7 @@
             {% else %}
               <p>Available!</p>
             {% endif %}
+            <p>これは{{ product.title }}サイズです。</p>
           {% endif %}
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
@@ -154,5 +155,8 @@
     </pickup-availability>
 
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
+    <script>
+      console.log('Product: ', {{ product | json }})
+    </script>
   {%- endif -%}
 </div>
