@@ -188,7 +188,20 @@
                 {%- if product.description != blank -%}
                   <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
                     {{ product.description }}
+                    <p id="selected-value-display"></p>
                   </div>
+                  <script>
+                    function displaySelectedValue(radio) {
+                      var selectedValue = radio.value;
+                      var displayElement = document.getElementById('selected-value-display');
+                      displayElement.innerText = 'これは' + selectedValue + 'サイズです。';
+                    }
+                    window.onload = function() {
+                      var selectedValue = document.querySelector('input[name="Size"]:checked').value;
+                      var displayElement = document.getElementById('selected-value-display');
+                      displayElement.innerText = 'これは' + selectedValue + 'サイズです。';
+                    };
+                  </script>
                 {%- endif -%}
               {%- when 'sku' -%}
                 <p
@@ -449,11 +462,8 @@
                   assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin
                   render 'share-button', block: block, share_link: share_url
                 %}
-              {% comment %} {%- when 'variant_picker' -%}
-                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %} {% endcomment %}
-              <script>
-                console.log('Product: ',{{ product | json }})
-              </script>
+              {%- when 'variant_picker' -%}
+                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
                 {%- render 'custom-buy-buttons',
                   block: block,
@@ -746,7 +756,6 @@
     </script>
   </div>
 </section>
-
 {% schema %}
 {
   "name": "t:sections.main-product.name",

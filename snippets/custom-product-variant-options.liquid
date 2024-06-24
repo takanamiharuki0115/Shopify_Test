@@ -16,6 +16,9 @@
     picker_type: picker_type
   %}
 {% endcomment %}
+
+{{ 'custom-button.js' | asset_url | stylesheet_tag }}
+
 {%- liquid
   assign variants_available_arr = product.variants | map: 'available'
   assign variants_option1_arr = product.variants | map: 'option1'
@@ -92,9 +95,24 @@
       help_text: help_text
     %}
   {%- elsif picker_type == 'button' -%}
-    <p>
-      これは{{ value -}}サイズです。
-    </p>
+  <input
+    type="radio"
+    id="{{ input_id }}"
+    name="{{ option.name }}"
+    value="{{ value | escape }}"
+    form="{{ product_form_id }}"
+    {% if option.selected_value == value %}
+      checked
+    {% endif %}
+    {% if option_disabled %}
+      class="disabled"
+    {% endif %}
+    onclick="displaySelectedValue(this)"
+  >
+  <label for="{{ input_id }}">
+    {{ value -}}
+    {{ label_unavailable }}
+  </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
     <option
       value="{{ value | escape }}"
