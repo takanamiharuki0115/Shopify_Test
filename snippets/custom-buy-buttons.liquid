@@ -11,6 +11,7 @@
   {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
 {% endcomment %}
 {{ 'custom.css' | asset_url | stylesheet_tag }}
+
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     {%- liquid
@@ -101,7 +102,6 @@
             {% else %}
               <p>Available!</p>
             {% endif %}
-            <p>これは{{ product.title }}サイズです。</p>
           {% endif %}
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
@@ -155,8 +155,5 @@
     </pickup-availability>
 
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
-    <script>
-      console.log('Product: ', {{ product | json }})
-    </script>
   {%- endif -%}
 </div>
